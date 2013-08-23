@@ -18,23 +18,23 @@
 		$id = trim($row[0]);
 		if($_FILES['imagen1']['size']>0){
 			if($_FILES['imagen1']['type']=="image/jpeg"){
-				$nom="uploads\\".date("Ymdhis").$_FILES['imagen1']['name'];
-				move_uploaded_file ($_FILES['imagen1']['tmp_name'], $nom);
+				$nom=date("Ymdhis").$_FILES['imagen1']['name'];
+				move_uploaded_file ($_FILES['imagen1']['tmp_name'], "uploads\\".$nom);
 				mysql_query("INSERT INTO imagen VALUES (NULL,'$nom','$id')");
 			}
 		}if($_FILES['imagen2']['size']>0){
 			if($_FILES['imagen2']['type']=="image/jpeg"){
-				$nom="uploads\\".date("Ymdhis").$_FILES['imagen2']['name'];
-				move_uploaded_file ($_FILES['imagen2']['tmp_name'], $nom);
+				$nom=date("Ymdhis").$_FILES['imagen2']['name'];
+				move_uploaded_file ($_FILES['imagen2']['tmp_name'], "uploads\\".$nom);
 				mysql_query("INSERT INTO imagen VALUES (NULL,'$nom','$id')");
 			}
 		}if($_FILES['imagen3']['size']>0){
 			if($_FILES['imagen3']['type']=="image/jpeg"){
-				$nom="uploads\\".date("Ymdhis").$_FILES['imagen3']['name'];
-				move_uploaded_file ($_FILES['imagen3']['tmp_name'], $nom);
+				$nom=date("Ymdhis").$_FILES['imagen3']['name'];
+				move_uploaded_file ($_FILES['imagen3']['tmp_name'], "uploads\\".$nom);
 				mysql_query("INSERT INTO imagen VALUES (NULL,'$nom','$id')");
 			}
 		}
 	}
-	header('Location: NuevoAnuncio.php');
+	header('Location: index.php');
 ?>
