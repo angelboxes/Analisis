@@ -81,35 +81,16 @@
 					<!-- First Tab Content -->
 					<div class="tab-content" style="display:block;">
 						<div>
-							<div style="float:left;width:30%;">
-								[Icono Nuevo Anuncio]
-							</div>
-							<div style="float:left;width:70%;">
-								<form action="phpNuevoAnuncio.php" method="POST">
-									<p>Nombre del Producto</p>
-									<p><input type="text" name="producto" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
+							<form action="phpNuevoAnuncio.php" method="POST" enctype="multipart/form-data">
+								<div style="float:left;width:50%;">
+									<p>Imagen del Producto</p>
+									<input type="hidden" name="MAX_FILE_SIZE" value="700000" />
+									<p><input type="file" name="imagen1" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
 									<br />
-									<p>Descripccion</p>
-									<p><textarea name="descripccion" rows="3" style="width:90%;background:WhiteSmoke;border:0;color:BLACK"></textarea></p>
+									<p><input type="file" name="imagen2" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
 									<br />
-									<p>Precio "En Quetzales"</p>
-									<p><input type="number" name="precio" step="any" min="0" value="0.00" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-									<br />
-									<p>Cantidad "Numero de unidades"</p>
-									<p><input type="number" name="cantidad" min="1" value="1" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-									<br />
-									<p>Condicion</p>
-									<p><select name="condicion" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK">
-										<option value="Nuevo">Nuevo</option>
-										<option value="Bueno">Bueno</option>
-										<option value="Regular">Regular</option>
-										<option value="Malo">Malo</option>
-									</select></p>
-									<br />
-									<p>Fecha de expiracion</p>
-									<p><input type="date" name="fecha" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-									<br />
-									<input type="hidden" name="prioridad" value="0" />
+									<p><input type="file" name="imagen3" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
+									<br /><br /><br /><br />
 									<p>Categoria</p>
 									<p><select name="categoria" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK">
 										<?php
@@ -122,10 +103,37 @@
 											}
 										?>
 									</select></p>
+									<br />
+									<p>Condicion</p>
+									<p><select name="condicion" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK">
+										<option value="Nuevo">Nuevo</option>
+										<option value="Bueno">Bueno</option>
+										<option value="Regular">Regular</option>
+										<option value="Malo">Malo</option>
+									</select></p>
+								</div>
+								<div style="float:left;width:50%;">
+									<p>Nombre del Producto</p>
+									<p><input type="text" name="producto" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
+									<br />
+									<p>Descripccion</p>
+									<p><textarea name="descripccion" rows="3" style="width:90%;background:WhiteSmoke;border:0;color:BLACK"></textarea></p>
+									<br />
+									<p>Precio "En Quetzales"</p>
+									<p><input type="number" name="precio" step="any" min="0" value="0.00" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
+									<br />
+									<p>Cantidad "Numero de unidades"</p>
+									<p><input type="number" name="cantidad" min="1" value="1" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
+									<br />
+									<p>Fecha de expiracion</p>
+									<p><input type="date" name="fecha" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
+									<br />
+									<input type="hidden" name="prioridad" value="0" />
+									
 									<br /><br />
 									<p><input type="submit" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-								</form>
-							</div>
+								</div>
+							</form>
 						</div>
 					</div>
 					<!-- End First Tab Content -->

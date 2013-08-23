@@ -9,19 +9,32 @@
 	$d8=$_POST['prioridad'];
 	$d9=$_POST['categoria'];
 	$d10=1;
-	echo $d1."<br />";
-	echo $d2."<br />";
-	echo $d3."<br />";
-	echo $d4."<br />";
-	echo $d5."<br />";
-	echo $d6."<br />";
-	echo $d7."<br />";
-	echo $d8."<br />";
-	echo $d9."<br />";
-	echo $d10."<br />";
 	$conn = mysql_connect("localhost","root" ,"");
 	mysql_select_db("catalogo", $conn);
 	$query = "INSERT INTO anuncio VALUES (NULL,'$d1','$d2',$d3,$d4,'$d5','$d6',$d7,$d8,'$d9',$d10)";
-	echo "<br /><br />".$query."<br /><br />";
-	$resultado = mysql_query($query, $conn) or die(mysql_error());
+	mysql_query($query, $conn);
+	$resultado = mysql_query("SELECT MAX(id_anuncio) AS id FROM anuncio");
+	if ($row = mysql_fetch_row($resultado)) {
+		$id = trim($row[0]);
+		if($_FILES['imagen1']['size']>0){
+			if($_FILES['imagen1']['type']=="image/jpeg"){
+				$nom="uploads\\".date("Ymdhis").$_FILES['imagen1']['name'];
+				move_uploaded_file ($_FILES['imagen1']['tmp_name'], $nom);
+				mysql_query("INSERT INTO imagen VALUES (NULL,'$nom','$id')");
+			}
+		}if($_FILES['imagen2']['size']>0){
+			if($_FILES['imagen2']['type']=="image/jpeg"){
+				$nom="uploads\\".date("Ymdhis").$_FILES['imagen2']['name'];
+				move_uploaded_file ($_FILES['imagen2']['tmp_name'], $nom);
+				mysql_query("INSERT INTO imagen VALUES (NULL,'$nom','$id')");
+			}
+		}if($_FILES['imagen3']['size']>0){
+			if($_FILES['imagen3']['type']=="image/jpeg"){
+				$nom="uploads\\".date("Ymdhis").$_FILES['imagen3']['name'];
+				move_uploaded_file ($_FILES['imagen3']['tmp_name'], $nom);
+				mysql_query("INSERT INTO imagen VALUES (NULL,'$nom','$id')");
+			}
+		}
+	}
+	header('Location: NuevoAnuncio.php');
 ?>
