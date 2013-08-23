@@ -92,11 +92,7 @@
 			
 			<!-- Tabs -->
 			<div class="tabs">
-				<ul>
-				    <li><a href="#" class="active"><span>Safety Shoes</span></a></li>
-				    <li><a href="#"><span>Sport Shoes</span></a></li>
-				    <li><a href="#" class="red"><span>More Shoes</span></a></li>
-				</ul>
+				<?php include 'cargacategorias.php'; ?> 
 			</div>
 			<!-- Tabs -->
 			
@@ -104,8 +100,8 @@
 			<div id="container">
 				
 				<div class="tabbed">
-					
-					<!-- First Tab Content -->
+					<?php include 'cargaproductos.php'; ?> 
+					<!-- 
 					<div class="tab-content" style="display:block;">
 						<div class="items">
 							<div class="cl">&nbsp;</div>
@@ -202,9 +198,9 @@
 							<div class="cl">&nbsp;</div>
 						</div>
 					</div>
-					<!-- End First Tab Content -->
+					End First Tab Content
 					
-					<!-- Second Tab Content -->
+					Second Tab Content
 					<div class="tab-content">
 						<div class="items">
 							<div class="cl">&nbsp;</div>
@@ -301,9 +297,9 @@
 							<div class="cl">&nbsp;</div>
 						</div>
 					</div>
-					<!-- End Second Tab Content -->
+					End Second Tab Content 
 					
-					<!-- Third Tab Content -->
+					Third Tab Content
 					<div class="tab-content">
 						<div class="items">
 							<div class="cl">&nbsp;</div>
@@ -489,7 +485,7 @@
 							<div class="cl">&nbsp;</div>
 						</div>
 					</div>
-					<!-- End Third Tab Content -->
+					End Third Tab Content -->
 					
 				</div>
 				
