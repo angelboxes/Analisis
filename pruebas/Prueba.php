@@ -1,9 +1,9 @@
 <?php
-class Conexions PHPUnit_Framework_TestCase
+class Conexions extends PHPUnit_Framework_TestCase
 {
   public function setUp(){ }
   public function tearDown(){ }
-  public function ConexionIsValid()
+  public function testConexionBD()
   {
     // Prueba para probar que la conexión de la base de datos funcione 
     $conn = mysql_connect("localhost","root" ,"");
