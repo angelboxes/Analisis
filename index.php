@@ -17,7 +17,7 @@
 		
 		<!-- Header -->
 		<div id="header">
-			<h1 id="logo"><a href="#">Urgan Gear</a></h1>
+			<h1 id="logo"><a href="index.php">Urgan Gear</a></h1>
 			<div id="navigation">
 				<ul>
 				    <li><a href="#">Inicio</a></li>
@@ -64,6 +64,7 @@
 				<form action="index.php" method="POST">
 					<span class="field"><input type="text" class="blink" value="Busqueda Avanzada" name="buscar" /></span>
 					<input type="hidden" name="tipo" value="1" />
+					<input type="hidden" name="pagina" value="0" />
 					<input type="submit" class="search-submit" value="GO" />
 				</form>
 			</div>
@@ -80,6 +81,7 @@
 							}
 						?></select></span>
 						<input type="hidden" name="tipo" value="2" />
+						<input type="hidden" name="pagina" value="0" />
 					<input type="submit" class="search-submit" value="GO" />
 				</form>
 			</div>
@@ -103,6 +105,9 @@
 				<div class="tabbed">
 					<!-- Tab Productos -->
 					<div class="tab-content" style="display:block;">
+						<div class="items">
+							<div class="cl">&nbsp;</div>
+							<ul>
 					<?php
 					if($_POST){
 						if($_POST['tipo']==1){
@@ -110,17 +115,14 @@
 							$conn = mysql_connect("localhost","root" ,"");
 							mysql_select_db("catalogo", $conn);
 							$query = "SELECT * FROM anuncio WHERE producto like '%$busqueda%' or descripccion like '%$busqueda%' ORDER BY prioridad desc;";
-							$resultado = mysql_query($query, $conn);;
+							$resultado = mysql_query($query, $conn);
 							while ($fila = mysql_fetch_array($resultado, MYSQL_NUM)) {
-								echo "<div class=\"items\">";
-								echo "<div class=\"cl\">&nbsp;</div>";
-								echo "<ul>";
-								echo "<li>";
+								echo "<li style=\"height:260px\">";
 								echo "<div class=\"image\">";
 									$query2 = "SELECT imagen FROM imagen WHERE id_anuncio=$fila[0];";
 									$resultado2 = mysql_query($query2, $conn);;
 									if($fila2 = mysql_fetch_array($resultado2, MYSQL_NUM)){
-										echo "<a href=\"#\"><img style=\"width:190px\" src=\"uploads/$fila2[0]\" alt=\"\" /></a>";
+										echo "<a href=\"#\"><img style=\"width:190px;height:155px\" src=\"uploads/$fila2[0]\" alt=\"\" /></a>";
 									}else{
 										echo "<a href=\"#\">Imagen no disponible</a>";
 									}
@@ -132,10 +134,8 @@
 								echo "</p>";
 								echo "<p class=\"price\">Precio: <strong>Q",$fila[3],"</strong></p>";
 								echo "</li>";
-								echo "</ul>";
-								echo "<div class=\"cl\">&nbsp;</div>";
-								echo "</div>";
 							}
+							echo "</ul><div class=\"cl\">&nbsp;</div></div></div>";
 							mysql_free_result($resultado);
 						}
 						if($_POST['tipo']==2){
@@ -143,17 +143,14 @@
 							$conn = mysql_connect("localhost","root" ,"");
 							mysql_select_db("catalogo", $conn);
 							$query = "SELECT * FROM anuncio WHERE categoria='$busqueda' ORDER BY prioridad desc;";
-							$resultado = mysql_query($query, $conn);;
+							$resultado = mysql_query($query, $conn);
 							while ($fila = mysql_fetch_array($resultado, MYSQL_NUM)) {
-								echo "<div class=\"items\">";
-								echo "<div class=\"cl\">&nbsp;</div>";
-								echo "<ul>";
-								echo "<li>";
+								echo "<li style=\"height:260px\">";
 								echo "<div class=\"image\">";
 									$query2 = "SELECT imagen FROM imagen WHERE id_anuncio=$fila[0];";
 									$resultado2 = mysql_query($query2, $conn);;
 									if($fila2 = mysql_fetch_array($resultado2, MYSQL_NUM)){
-										echo "<a href=\"#\"><img style=\"width:190px\" src=\"uploads/$fila2[0]\" alt=\"\" /></a>";
+										echo "<a href=\"#\"><img style=\"width:190px;height:155px\" src=\"uploads/$fila2[0]\" alt=\"\" /></a>";
 									}else{
 										echo "<a href=\"#\">Imagen no disponible</a>";
 									}
@@ -165,27 +162,71 @@
 								echo "</p>";
 								echo "<p class=\"price\">Precio: <strong>Q",$fila[3],"</strong></p>";
 								echo "</li>";
-								echo "</ul>";
-								echo "<div class=\"cl\">&nbsp;</div>";
-								echo "</div>";
 							}
+							echo "</ul><div class=\"cl\">&nbsp;</div></div></div>";
 							mysql_free_result($resultado);
+						}
+						if($_POST['tipo']==3){
+							$pagina=$_POST['pagina'];
+							$l1=($pagina-1)*8;
+							$conn = mysql_connect("localhost","root" ,"");
+							mysql_select_db("catalogo", $conn);
+							$query = "SELECT * FROM anuncio ORDER BY prioridad desc LIMIT $l1,8;";
+							$resultado = mysql_query($query, $conn);
+							$num=0;
+							while ($fila = mysql_fetch_array($resultado, MYSQL_NUM)) {
+								$num=$num+1;
+								echo "<li style=\"height:260px\">";
+								echo "<div class=\"image\">";
+								$query2 = "SELECT imagen FROM imagen WHERE id_anuncio=$fila[0];";
+								$resultado2 = mysql_query($query2, $conn);;
+								if($fila2 = mysql_fetch_array($resultado2, MYSQL_NUM)){
+									echo "<a href=\"#\"><img style=\"width:190px;height:155px\" src=\"uploads/$fila2[0]\" alt=\"\" /></a>";
+								}else{
+									echo "<a href=\"#\">Imagen no disponible</a>";
+								}
+								echo "</div>";
+								echo "<p>";
+								echo "<br />";
+								echo "Nombre: <span>",$fila[1],"</span><br />";
+								echo "Descripcion: <a href=\"#\">",$fila[2],"</a>";
+								echo "</p>";
+								echo "<p class=\"price\">Precio: <strong>Q",$fila[3],"</strong></p>";
+								echo "</li>";
+							}
+							echo "</ul><div class=\"cl\">&nbsp;</div></div></div>";
+							mysql_free_result($resultado);
+							if($pagina>1){
+								$v=$pagina-1;
+								echo "<form action=\"index.php\" method=\"POST\">";
+								echo "<input type=\"hidden\" name=\"tipo\" value=\"3\" />";
+								echo "<input type=\"hidden\" name=\"pagina\" value=\"$v\" />";
+								echo "<p><input type=\"submit\" value=\"<< Anterior\" style=\"width:100px;height:25px;background:WhiteSmoke;border:0;color:BLACK\" /></p>";
+								echo "</form>";
+							}
+							if($num==8){
+								$v=$pagina+1;
+								echo "<form action=\"index.php\" method=\"POST\">";
+								echo "<input type=\"hidden\" name=\"tipo\" value=\"3\" />";
+								echo "<input type=\"hidden\" name=\"pagina\" value=\"$v\" />";
+								echo "<p><input type=\"submit\" value=\"Siguiente >>\" style=\"width:100px;height:25px;background:WhiteSmoke;border:0;color:BLACK\" /></p>";
+								echo "</form>";
+							}
 						}
 					}else{
 						$conn = mysql_connect("localhost","root" ,"");
 						mysql_select_db("catalogo", $conn);
-						$query = "SELECT * FROM anuncio ORDER BY prioridad desc;";
-						$resultado = mysql_query($query, $conn);;
+						$query = "SELECT * FROM anuncio ORDER BY prioridad desc LIMIT 0,8;";
+						$resultado = mysql_query($query, $conn);
+						$num=0;
 						while ($fila = mysql_fetch_array($resultado, MYSQL_NUM)) {
-							echo "<div class=\"items\">";
-							echo "<div class=\"cl\">&nbsp;</div>";
-							echo "<ul>";
-							echo "<li>";
+							$num=$num+1;
+							echo "<li style=\"height:260px\">";
 							echo "<div class=\"image\">";
 								$query2 = "SELECT imagen FROM imagen WHERE id_anuncio=$fila[0];";
 								$resultado2 = mysql_query($query2, $conn);;
 								if($fila2 = mysql_fetch_array($resultado2, MYSQL_NUM)){
-									echo "<a href=\"#\"><img style=\"width:190px\" src=\"uploads/$fila2[0]\" alt=\"\" /></a>";
+									echo "<a href=\"#\"><img style=\"width:190px;height:155px\" src=\"uploads/$fila2[0]\" alt=\"\" /></a>";
 								}else{
 									echo "<a href=\"#\">Imagen no disponible</a>";
 								}
@@ -197,14 +238,19 @@
 							echo "</p>";
 							echo "<p class=\"price\">Precio: <strong>Q",$fila[3],"</strong></p>";
 							echo "</li>";
-							echo "</ul>";
-							echo "<div class=\"cl\">&nbsp;</div>";
-							echo "</div>";
 						}
+						echo "</ul><div class=\"cl\">&nbsp;</div></div></div>";
 						mysql_free_result($resultado);
+						if($num==8){
+							echo "<form action=\"index.php\" method=\"POST\">";
+							echo "<input type=\"hidden\" name=\"tipo\" value=\"3\" />";
+							echo "<input type=\"hidden\" name=\"pagina\" value=\"2\" />";
+							echo "<p><input type=\"submit\" value=\"Siguiente >>\" style=\"width:100px;height:25px;background:WhiteSmoke;border:0;color:BLACK\" /></p>";
+							echo "</form>";
+						}
 					}
 					?>
-					</div>
+					
 					<!-- Tab Productos -->
 				
 					<!-- Tab Nuevo Anuncio -->
