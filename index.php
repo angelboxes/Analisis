@@ -17,14 +17,10 @@
 		
 		<!-- Header -->
 		<div id="header">
-			<h1 id="logo"><a href="index.php">Urgan Gear</a></h1>
 			<div id="navigation">
 				<ul>
-				    <li><a href="#">Inicio</a></li>
-					<li><a href="#">Soporte</a></li>
-					<li><a href="#">Cuenta</a></li>
-					<li><a href="#">Mis anuncios</a></li>
-					<li class="last"><a href="#">Contacto</a></li>
+				    <li><a href="index.php">Inicio</a></li>
+					<li class="last"><a href="registro.php">Registro</a></li>
 				</ul>
 			</div>
 		</div>
@@ -64,17 +60,17 @@
 				<form action="index.php" method="POST">
 					<span class="field"><input type="text" class="blink" value="Busqueda Avanzada" name="buscar" /></span>
 					<input type="hidden" name="tipo" value="1" />
-					<input type="hidden" name="pagina" value="0" />
+					<input type="hidden" name="pagina" value="1" />
 					<input type="submit" class="search-submit" value="GO" />
 				</form>
 			</div>
 			<div class="search">
 				<form action="index.php" method="POST">
 					<span class="field"><select name="categoria">
-						<?php include("categoria.php"); ?>
-						?></select></span>
+						<?php include 'categoria.php'; ?>
+						</select></span>
 						<input type="hidden" name="tipo" value="2" />
-						<input type="hidden" name="pagina" value="0" />
+						<input type="hidden" name="pagina" value="1" />
 					<input type="submit" class="search-submit" value="GO" />
 				</form>
 			</div>
@@ -85,91 +81,44 @@
 		<div id="content">
 			
 			<!-- Tabs -->
-			<div class="tabs">
-				<ul>
-				    <li><a href="#" class="active"><span>Productos</span></a></li>
+			<div class="tabs"><ul>
+				    <li><a href="#" class="active"><span>Catalogo</span></a></li>
 					<li><a href="#" class="active"><span>Nuevo Anuncio</span></a></li>
-				</ul>
-			</div>
+			</ul></div>
 			<!-- Tabs -->
 			
 			<!-- Container -->
 			<div id="container">
 				<div class="tabbed">
-					<!-- Tab Productos -->
+					<!-- Tab Catalogo -->
 					<div class="tab-content" style="display:block;">
 						<div class="items">
-							<div class="cl">&nbsp;</div>
-							<ul>
-					<?php include("busqueda.php"); ?>
-					
-					<!-- Tab Productos -->
+							<?php include 'catalogo.php'; ?>
+						</div>
+						<div class="cl">&nbsp;</div>
+						Sugerencias<div style="min-height:1px; clear:both; width:100%; border-bottom:1px solid #d1d1d1; height:1px; padding-top:5px; margin-top:5px; margin-bottom:10px;"></div>
+						<div class="items">
+							<?php include 'sugerencias.php'; ?>
+						</div>
+					</div>
+					<!-- Tab Catalogo -->
 				
 					<!-- Tab Nuevo Anuncio -->
 					<div class="tab-content" style="display:block;">
 						<div>
-							<form action="phpNuevoAnuncio.php" method="POST" enctype="multipart/form-data">
-								<div style="float:left;width:50%;">
-									<p>Imagen del Producto</p>
-									<input type="hidden" name="MAX_FILE_SIZE" value="700000" />
-									<p><input type="file" name="imagen1" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-									<br />
-									<p><input type="file" name="imagen2" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-									<br />
-									<p><input type="file" name="imagen3" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-									<br /><br /><br /><br />
-									<p>Categoria</p>
-									<p><select name="categoria" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK">
-										<?php include("categoria.php"); ?>
-									</select></p>
-									<br />
-									<p>Condicion</p>
-									<p><select name="condicion" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK">
-										<option value="Nuevo">Nuevo</option>
-										<option value="Bueno">Bueno</option>
-										<option value="Regular">Regular</option>
-										<option value="Malo">Malo</option>
-									</select></p>
-								</div>
-								<div style="float:left;width:50%;">
-									<p>Nombre del Producto</p>
-									<p><input type="text" name="producto" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-									<br />
-									<p>Descripccion</p>
-									<p><textarea name="descripccion" rows="3" style="width:90%;background:WhiteSmoke;border:0;color:BLACK"></textarea></p>
-									<br />
-									<p>Precio "En Quetzales"</p>
-									<p><input type="number" name="precio" step="any" min="0" value="0.00" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-									<br />
-									<p>Cantidad "Numero de unidades"</p>
-									<p><input type="number" name="cantidad" min="1" value="1" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-									<br />
-									<p>Fecha de expiracion</p>
-									<p><input type="date" name="fecha" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-									<br />
-									<input type="hidden" name="prioridad" value="0" />
-									
-									<br /><br />
-									<p><input type="submit" style="width:90%;height:25px;background:WhiteSmoke;border:0;color:BLACK" /></p>
-								</div>
-							</form>
+							<?php include 'crearAnuncio.php'; ?>
 						</div>
 					</div>
 					<!-- Tab Nuevo Anuncio -->
+				
 				</div>
 				
 				<!-- Footer -->
 				<div id="footer">
 					<div class="left">
-						<a href="#">Home</a>
+						<a href="Index.php">Inicio</a>
 						<span>|</span>
-						<a href="#">Support</a>
-						<span>|</span>
-						<a href="#">My Account</a>
-						<span>|</span>
-						<a href="#">The Store</a>
-						<span>|</span>
-						<a href="#">Contact</a>
+						<a href="registro.php">Registrarce</a>
 					</div>
 					<div class="right">
 						&copy; Sitename.com. Design by <a href="http://chocotemplates.com" target="_blank" title="CSS Templates">ChocoTemplates.com</a>

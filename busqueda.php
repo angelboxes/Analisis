@@ -1,4 +1,11 @@
 <?php
+function conexion(){
+	$conn = mysql_connect("localhost","root" ,"");
+	return $conn;
+}
+
+
+
 function mostrarProducto($conn,$resultado){
 	$num=0;
 	while ($fila = mysql_fetch_array($resultado, MYSQL_NUM)) {
@@ -25,12 +32,18 @@ function mostrarProducto($conn,$resultado){
 	return $num;
 }
 
+function historialBusqueda($usuario,$busqueda,$conn){
+	$fecha=date("Y-m-d H:i:s", time());
+	$query = "INSERT INTO busquedas VALUES (NULL,$usuario,'$busqueda','$fecha')";
+	return mysql_query($query, $conn);
+}
 
 $conn = mysql_connect("localhost","root" ,"");
 mysql_select_db("catalogo", $conn);
 if($_POST){
 	if($_POST['tipo']==1){
 		$busqueda=$_POST['buscar'];
+		historialBusqueda(1,$busqueda,$conn);
 		$query = "SELECT * FROM anuncio WHERE producto like '%$busqueda%' or descripccion like '%$busqueda%' ORDER BY prioridad desc;";
 		$resultado = mysql_query($query, $conn);
 		mostrarProducto($conn,$resultado);
@@ -38,6 +51,7 @@ if($_POST){
 	}
 	if($_POST['tipo']==2){
 		$busqueda=$_POST['categoria'];
+		historialBusqueda(1,$busqueda,$conn);
 		$query = "SELECT * FROM anuncio WHERE categoria='$busqueda' ORDER BY prioridad desc;";
 		$resultado = mysql_query($query, $conn);
 		mostrarProducto($conn,$resultado);
