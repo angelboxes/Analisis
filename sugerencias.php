@@ -1,7 +1,11 @@
 <?php
 $conn = mysql_connect("localhost","root" ,"");
 mysql_select_db("catalogo", $conn);
-$usuario=1;
+if($_SESSION){
+	$usuario=$_SESSION['id_usuario'];
+}else{
+	$usuario=0;
+}
 if($usuario!=0){
 	$query = "SELECT busqueda, count(*) as cantidad, max(fecha) as fecha FROM busquedas WHERE id_usuario=$usuario GROUP BY busqueda ORDER BY cantidad desc, fecha LIMIT 0,5;";
 	$resultado = mysql_query($query, $conn);

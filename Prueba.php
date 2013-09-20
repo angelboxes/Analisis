@@ -1,10 +1,22 @@
 <?php
 include 'pruebaConexion.php';
 include 'pruebaHistorialBusqueda.php';
-class Conexions extends PHPUnit_Framework_TestCase
+class Conexions extends PHPUnit_Extensions_SeleniumTestCase
 {	
   var $conn;  
-  public function setUp(){ }
+    protected $captureScreenshotOnFailure = TRUE;
+    protected $screenshotPath = 'C:\xampp\htdocs\Analisis\screenshots';
+    protected $screenshotUrl = 'http://localhost/screenshots';
+
+
+   protected function setUp()
+    {
+         $this->setBrowser('*firefox');
+        $this->setBrowserUrl('http://localhost/index.php');
+	$this->setPort(8887);
+	$this->setHost('http://localhost/')	
+    }
+
   public function tearDown(){ }
   public function testConexionBD()
   { 	$this->conn=Conexion();
@@ -26,6 +38,13 @@ public function testinsertaHistorial()
 	$n=ihistorialBusqueda(1,"nuevo",$this->conn);
 	$this->assertTrue($n==True);
   }
+
+public function testLogin()
+  {	$this->conn=ConexionBD("catalogo");
+	$n=ihistorialBusqueda(1,"nuevo",$this->conn);
+	$this->assertTrue($n==True);
+  }
+
 }	
 
 ?>

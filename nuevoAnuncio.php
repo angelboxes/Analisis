@@ -1,4 +1,6 @@
 <?php
+	session_start();
+	if(!$_SESSION){header('Location: index.php');}
 	$d1=$_POST['producto'];
 	$d2=$_POST['descripccion'];
 	$d3=$_POST['precio'];
@@ -8,10 +10,11 @@
 	$d7=1;
 	$d8=$_POST['prioridad'];
 	$d9=$_POST['categoria'];
-	$d10=1;
+	$d10=$_SESSION['id_usuario'];
 	$conn = mysql_connect("localhost","root" ,"");
 	mysql_select_db("catalogo", $conn);
 	$query = "INSERT INTO anuncio VALUES (NULL,'$d1','$d2',$d3,$d4,'$d5','$d6',$d7,$d8,'$d9',$d10)";
+	echo $query;
 	mysql_query($query, $conn);
 	$resultado = mysql_query("SELECT MAX(id_anuncio) AS id FROM anuncio");
 	if ($row = mysql_fetch_row($resultado)) {

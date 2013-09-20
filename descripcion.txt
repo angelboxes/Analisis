@@ -1,0 +1,9 @@
+Repositorio de Github
+Dentro del repositorio de Github se encuentran todos los archivos que pertenecen al proyecto junto a una serie de cambios
+que se han realizado conforme este ha ido avanzando, en el directorio Raiz se encuentran todos los archivos que pertenecen
+a la pagina que se está desarrollando como index.php y los métodos para realizar las diferentees consultas a la base de datos.
+Dentro de la carpeta pruebas se van documentando todas las pruebas hechas una vez que se hayan terminado, estos archivos tambien
+se encuentran en el directorio raiz para su facilidad de uso al momento de ejecutar las pruebas. Dentro de la carpeta Base de datos
+se encuentra el script de la creación de la base de datos que se encuentra en uso para este proyecto, las carpetas js y css son parte
+del diseño de la página, de igual manera en la carpeta uploads se usará para el contenido subido por los usuarios en sus publicaciones.
+

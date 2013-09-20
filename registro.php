@@ -1,4 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php session_start(); 
+	if($_SESSION){header("Location: index.php");}
+?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -20,7 +23,8 @@
 			<div id="navigation">
 				<ul>
 				    <li><a href="index.php">Inicio</a></li>
-					<li class="last"><a href="registro.php">Registro</a></li>
+					<li><a href="registro.php">Registro</a></li>
+					<li class="last"><a href="login.php">Login</a></li>
 				</ul>
 			</div>
 		</div>
@@ -129,7 +133,7 @@ if($_GET){
 	$error="";
 	$query = "SELECT username FROM usuario WHERE username like '$usuario';";
 	$resultado = mysql_query($query, $conn);
-	if($fila = mysql_fetch_assoc($resultado)){
+	if($fila = mysql_fetch_row($resultado)){
 		$valido=false;
 		$error=$error."Nombre de usuario ya existe<br>";
 	}
@@ -189,7 +193,9 @@ if($_GET){
 					<div class="left">
 						<a href="Index.php">Inicio</a>
 						<span>|</span>
-						<a href="registro.php">Registrarce</a>
+						<a href="registro.php">Registro</a>
+						<span>|</span>
+						<a href="login.php">Login</a>
 					</div>
 					<div class="right">
 						&copy; Sitename.com. Design by <a href="http://chocotemplates.com" target="_blank" title="CSS Templates">ChocoTemplates.com</a>

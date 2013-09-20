@@ -1,4 +1,6 @@
 <?php
+session_start();
+if(!$_SESSION){header('Location: index.php');}
 $mensaje=$_POST['mensaje'];
 $id_usuario=$_POST['id_usuario'];
 $id_vendedor=$_POST['id_vendedor'];
