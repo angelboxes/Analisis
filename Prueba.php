@@ -14,7 +14,6 @@ class Conexions extends PHPUnit_Extensions_SeleniumTestCase
          $this->setBrowser('*firefox');
         $this->setBrowserUrl('http://localhost/index.php');
 	$this->setPort(8887);
-	$this->setHost('http://localhost/')	
     }
 
   public function tearDown(){ }
@@ -34,12 +33,6 @@ public function testbusquedaHistorial()
   }
 
 public function testinsertaHistorial()
-  {	$this->conn=ConexionBD("catalogo");
-	$n=ihistorialBusqueda(1,"nuevo",$this->conn);
-	$this->assertTrue($n==True);
-  }
-
-public function testLogin()
   {	$this->conn=ConexionBD("catalogo");
 	$n=ihistorialBusqueda(1,"nuevo",$this->conn);
 	$this->assertTrue($n==True);

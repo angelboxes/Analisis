@@ -1,34 +1,43 @@
 <?php
-require_once('busqueda.php');
-class Conexions extends PHPUnit_Framework_TestCase
-{
-  public function setUp(){ }
+include 'pruebaConexion.php';
+include 'pruebaHistorialBusqueda.php';
+class Conexions extends PHPUnit_Extensions_SeleniumTestCase
+{	
+  var $conn;  
+    protected $captureScreenshotOnFailure = TRUE;
+    protected $screenshotPath = 'C:\xampp\htdocs\Analisis\screenshots';
+    protected $screenshotUrl = 'http://localhost/screenshots';
+
+
+   protected function setUp()
+    {
+         $this->setBrowser('*firefox');
+        $this->setBrowserUrl('http://localhost/index.php');
+	$this->setPort(8887);
+    }
+
   public function tearDown(){ }
   public function testConexionBD()
-  {
-    // Prueba para probar que la conexión de la base de datos funcione 
-    $conn = mysql_connect("localhost","root" ,"");
-    $this->assertTrue($conn !== false);
-    mysql_select_db("catalogo", $conn);
-    $query = "SELECT * FROM categoria";
-    $resultado = mysql_query($query, $conn) or die(mysql_error());
-    $this->assertTrue($resultado !== false);
-    $this->assertTrue(mysql_fetch_assoc($resultado)!==false);
-    while ($fila = mysql_fetch_assoc($resultado)) {
-	$this->AssertNotEmpty($fila['categoria']);
-	}
+  { 	$this->conn=Conexion();
+	$this->assertTrue($this->conn==True);
   }
 
-   public function testProducto(){
-	$conn = mysql_connect("localhost","root" ,"");
-	mysql_select_db("catalogo", $conn);
-	$query = "SELECT * FROM anuncio ORDER BY prioridad desc LIMIT 0,8;";
-	$resultado = mysql_query($query, $conn);
-	$this->assertGreaterThan(-1,mostrarProducto($conn,$resultado));
-	
-   }
-  
-	
+public function testConexionBD2()
+  {	$this->conn=ConexionBD("catalogo");
+	$this->assertTrue($this->conn==True);
+  }
+   
+public function testbusquedaHistorial()
+  {	$n=pruebaHistorialBusqueda();
+	$this->assertGreaterThanOrEqual(0,$n);
+  }
+
+public function testinsertaHistorial()
+  {	$this->conn=ConexionBD("catalogo");
+	$n=ihistorialBusqueda(1,"nuevo",$this->conn);
+	$this->assertTrue($n==True);
+  }
+
 }	
 
 ?>
